@@ -18,11 +18,14 @@ class Helper1{
     _db = await initDb();
     return _db;
   }
-  initDb() async{
+  initDb() async {
     io.Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, _databaseName);
-    var theDb = await openDatabase(path, version: 1, onCreate: (Database db, int version) async{
-      await db.execute('''
+    var theDb = await openDatabase(path, version: 1, onCreate: _onCreate);
+    return theDb;
+  }
+  void _onCreate(Database db, int version) async{
+    await db.execute('''
         create table $tableClient(
           $columnId integer primary key autoincrement, 
           $columnNom text not null,
@@ -35,15 +38,14 @@ class Helper1{
           $columnPrix text not null,
           $columnHeure DATETIME)
       ''');
-    });
-    return theDb;
   }
+
   Helper1.internal();
 
-  Future<Client> insert(Client client) async{
+  Future<int> insert(Client client) async{
     var dbClient = await db;
-    client.id = await dbClient.insert(tableClient, client.toMap());
-    return client;
+    int id = await dbClient.insert(tableClient, client.toMap());
+    return id;
   }
 
   Future<Client> getClient(int id) async{

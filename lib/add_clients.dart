@@ -16,7 +16,7 @@ class add extends StatefulWidget {
 }
 //List<GlobalKey<FormState>> formKeys = [GlobalKey<FormState>(), GlobalKey<FormState>(), GlobalKey<FormState>()];
 DateTime now = DateTime.now();
-String formattedDate = DateFormat('kk:mm:ss \n EEE d MMM').format(now);
+String formattedDate = DateFormat(' kk:mm:ss\nEEE d MMM').format(now);
 class Info{
   String name = '';
   String tel = '';
@@ -297,7 +297,7 @@ class _StepperBodyState extends State<StepperBody>{
                     new Text("Name : " + client.nom),
                     new Text("Phone : " + client.tel),
                     new Text("CNI : " + client.cni),
-                    new Text("marque : " + client.marque),
+                    new Text("imatruculation : " + client.imatriculation),
                     new Text(client.heure)
                     // new Text(client.heure),
                   ],
